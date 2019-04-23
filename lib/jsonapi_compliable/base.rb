@@ -336,6 +336,7 @@ module JsonapiCompliable
       jsonapi_resource.transaction do
         ::JsonapiCompliable::Util::Hooks.record do
           model = yield
+          jsonapi_resource.before_validate(model)
           validator = ::JsonapiCompliable::Util::ValidationResponse.new \
             model, deserialized_params
           validator.validate!

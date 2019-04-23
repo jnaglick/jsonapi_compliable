@@ -280,6 +280,18 @@ module JsonapiCompliable
       hook.call(model) if hook
     end
 
+    # Hook that fires before validation is run
+    def self.before_validate(&blk)
+      config[:before_validate] = blk
+    end
+
+    # Fire the before validate hook
+    def before_validate(model)
+      hook = self.class.config[:before_validate]
+      hook.call(model) if hook
+    end
+
+
     # Define custom sorting logic
     #
     # @example Sort on alternate table
